@@ -52,8 +52,27 @@ const Gameboard = (() => {
     // each new move replaces #'s in winners with player and then join/concat === XXX || OOO > game win
 
     winners.forEach((win) => {
-      console.log((grid[win[0]].turn, grid[win[1]].turn, grid[win[2]].turn));
+      // console.log((grid[win[0]].turn, grid[win[1]].turn, grid[win[2]].turn));
     });
+  };
+
+  const _reduceBoard = () => {
+    let winners = [
+      [0, 1, 2],
+      [3, 4, 5],
+      [6, 7, 8],
+      [0, 3, 6],
+      [1, 4, 7],
+      [2, 5, 8],
+      [0, 4, 8],
+      [2, 4, 6],
+    ];
+    let xzones = grid.filter((element) => element.turn === "X");
+    let ozones = grid.filter((element) => element.turn === "O");
+
+    let xwin = xzones.map((element) => element.id);
+    let owin = ozones.map((element) => element.id);
+    
   };
 
   const currBoard = () => {
@@ -62,7 +81,9 @@ const Gameboard = (() => {
 
   const makeMove = (selection, player) => {
     // console.log(selection, player);
+    // console.log(grid);
     grid[selection].turn = player;
+    _reduceBoard();
   };
 
   const restartGame = () => {

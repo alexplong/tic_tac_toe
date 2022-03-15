@@ -1,0 +1,38 @@
+/** @format */
+
+.flex {
+  display: flex;
+}
+.flex-dir-r {
+  flex-direction: row;
+}
+.flex-dir-c {
+  flex-direction: column;
+}
+.flex-jc-sb {
+  justify-content: space-between;
+}
+.flex-jc-c {
+  justify-content: center;
+}
+.flex-jc-fs {
+  justify-content: flex-start;
+}
+.flex-jc-fe {
+  justify-content: flex-end;
+}
+.flex-ai-c {
+  align-items: center;
+}
+.flex-wrap {
+  flex-wrap: wrap;
+}
+.flex-nowrap {
+  flex-wrap: nowrap;
+}
+.block {
+  display: block;
+}
+.block-inline {
+  display: inline-block;
+}

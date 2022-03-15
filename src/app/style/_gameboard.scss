@@ -1,0 +1,83 @@
+/** @format */
+
+:root {
+  --square-size: 100px;
+  --mark-size: calc(var(--square-size) * 0.9);
+}
+
+.gameboard-container {
+  background-color: #f9faf8;
+  width: 100vw;
+  height: 100vh;
+  display: grid;
+  justify-content: center;
+  align-content: center;
+  justify-items: center;
+  align-items: center;
+  grid-template-columns: repeat(3, auto);
+}
+
+.square {
+  width: var(--square-size);
+  height: var(--square-size);
+  border: 1px solid black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.square:first-child,
+.square:nth-child(2),
+.square:nth-child(3) {
+  border-top: none;
+}
+
+.square:nth-child(3n + 1) {
+  border-left: none;
+}
+
+.square:nth-child(3n + 3) {
+  border-right: none;
+}
+
+.square:last-child,
+.square:nth-child(8),
+.square:nth-child(7) {
+  border-bottom: none;
+}
+
+.square.x::before,
+.square.x::after {
+  width: calc(var(--mark-size) * 0.15);
+  height: var(--mark-size);
+  position: absolute;
+  background-color: black;
+  content: "";
+}
+
+.square.x::before {
+  transform: rotate(45deg);
+}
+
+.square.x::after {
+  transform: rotate(-45deg);
+}
+
+.square.o::before,
+.square.o::after {
+  position: absolute;
+  background-color: black;
+  border-radius: 50%;
+  content: "";
+}
+
+.square.o::before {
+  width: var(--mark-size);
+  height: var(--mark-size);
+}
+
+.square.o::after {
+  width: calc(var(--mark-size) * 0.7);
+  height: calc(var(--mark-size) * 0.7);
+  background-color: white;
+}

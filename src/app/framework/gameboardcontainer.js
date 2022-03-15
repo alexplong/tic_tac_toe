@@ -20,7 +20,7 @@ const main = () => {
     let x = document.createElement("div");
     let y = document.createElement("span");
     x.setAttribute("id", `${i}`);
-    x.setAttribute("class", "square");
+    x.setAttribute("class", "square o");
     x.append(y);
     gameboard.append(x);
   }
