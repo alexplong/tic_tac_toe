@@ -5,10 +5,10 @@
   --mark-size: calc(var(--square-size) * 0.9);
 }
 
-.gameboard-container {
+.board {
   background-color: #f9faf8;
-  width: 100vw;
-  height: 100vh;
+  width: 70vw;
+  height: 70vh;
   display: grid;
   justify-content: center;
   align-content: center;
@@ -24,6 +24,10 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.square.click {
+  cursor: pointer;
 }
 
 .square:first-child,
@@ -46,38 +50,103 @@
   border-bottom: none;
 }
 
+.square.x,
+.square.o {
+  cursor: not-allowed;
+}
+
 .square.x::before,
-.square.x::after {
+.square.x::after,
+.square.o::before,
+.square.o::after {
+  background-color: black;
+}
+
+.board.x .square.click:not(.x):not(.o):hover::before,
+.board.x .square.click:not(.x):not(.o):hover::after,
+.board.o .square.click:not(.x):not(.o):hover::before,
+.board.o .square.click:not(.x):not(.o):hover::after,
+.board.ai .square.click:not(.x):not(.o)::before,
+.board.ai .square.click:not(.x):not(.o)::after {
+  background-color: lightgray;
+}
+
+.square.x::before,
+.square.x::after,
+.board.x .square.click:not(.x):not(.o):hover::before,
+.board.x .square.click:not(.x):not(.o):hover::after {
   width: calc(var(--mark-size) * 0.15);
   height: var(--mark-size);
   position: absolute;
-  background-color: black;
   content: "";
 }
 
-.square.x::before {
+.square.x::before,
+.board.x .square.click:not(.x):not(.o):hover::before {
   transform: rotate(45deg);
 }
 
-.square.x::after {
+.square.x::after,
+.board.x .square.click:not(.x):not(.o):hover::after {
   transform: rotate(-45deg);
 }
 
 .square.o::before,
-.square.o::after {
+.square.o::after,
+.board.o .square.click:not(.x):not(.o):hover::before,
+.board.o .square.click:not(.x):not(.o):hover::after,
+.board.ai .square.click:not(.x):not(.o)::before,
+.board.ai .square.click:not(.x):not(.o)::after {
   position: absolute;
-  background-color: black;
   border-radius: 50%;
   content: "";
 }
 
-.square.o::before {
+.square.o::before,
+.board.o .square.click:not(.x):not(.o):hover::before,
+.board.ai .square.click:not(.x):not(.o)::before {
   width: var(--mark-size);
   height: var(--mark-size);
 }
 
-.square.o::after {
+.square.o::after,
+.board.o .square.click:not(.x):not(.o):hover::after,
+.board.ai .square.click:not(.x):not(.o)::after {
   width: calc(var(--mark-size) * 0.7);
   height: calc(var(--mark-size) * 0.7);
   background-color: white;
+}
+
+#winningMessage {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 5rem;
+  flex-direction: column;
+  display: none;
+}
+
+#winningMessage button {
+  font-size: 3rem;
+  background-color: white;
+  border: 1px solid black;
+  padding: 0.25em 0.5em;
+  cursor: pointer;
+}
+
+#winingMessage button:hover {
+  background-color: black;
+  color: white;
+  border-color: white;
+}
+
+#winningMessage.show {
+  display: flex;
 }

@@ -11,9 +11,12 @@ import "./style.scss";
   body.append(header(), main()); // header
 
   // dom cache
-  const gameContainer = document.querySelector(".gameboard-container");
+  const board = document.querySelector(".board");
+  const cells = document.querySelectorAll(".square");
   const restartGame = document.getElementById("reset-button");
   const startGame = document.getElementById("start-button");
+  const difficulty = document.querySelector(".difficulty");
+  const winningMessage = document.getElementById("winningMessage");
 
-  gameEvents(gameContainer, restartGame, startGame);
+  gameEvents(board, cells, restartGame, startGame, difficulty, winningMessage);
 })();
