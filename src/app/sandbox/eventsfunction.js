@@ -1,5 +1,5 @@
 /** @format */
-import gameAI from "./ai";
+import Gameboard from "./gameboard";
 import renderBoard from "./render";
 
 const gameEvents = (
@@ -7,11 +7,13 @@ const gameEvents = (
   cells,
   restartGame,
   startGame,
+  newGame,
   difficulty,
   winningMessage
 ) => {
   const X_CLASS = "x";
   const O_CLASS = "o";
+  const BOARD = [0, 1, 2, 3, 4, 5, 6, 7, 8];
   const WINNING_COMBINATIONS = [
     [0, 1, 2],
     [3, 4, 5],
@@ -24,8 +26,15 @@ const gameEvents = (
   ];
   let circleTurn;
 
+  const _newGame = () => {
+    cells.forEach((cell) => {
+      cell.classList.remove("x", "o", "click", "pve");
+    });
+    winningMessage.classList.remove("show");
+    winningMessage.children[0].textContent = "";
+  };
+
   const _startGame = () => {
-    console.log(difficulty.value);
     if (difficulty.value == "pvp") {
       circleTurn = false;
       cells.forEach((cell) => {
@@ -39,8 +48,9 @@ const gameEvents = (
       circleTurn = false;
       cells.forEach((cell) => {
         cell.addEventListener("click", _pveClick, { once: true });
-        cell.classList.add("pve");
+        cell.classList.add("click", "pve");
       });
+      _setHoverStatus();
     }
   };
 
@@ -60,8 +70,44 @@ const gameEvents = (
   const _pveClick = (e) => {
     const cell = e.target;
     const currentClass = circleTurn ? O_CLASS : X_CLASS;
+    // place user mark
     _placeMark(cell, currentClass);
-    gameAI.AI(cells, difficulty.value);
+
+    // check for win
+    if (_checkWinner(currentClass)) {
+      winningMessage.children[0].textContent = `${currentClass} is the WINNER!`;
+      winningMessage.classList.add("show");
+    } else {
+      // check for draw
+      // swap turns
+
+      // place ai mark
+      setTimeout(function () {
+        _rngAI(O_CLASS);
+      }, 500);
+      // check for win
+      // check for draw
+      // swap turns
+      // _swapTurns();
+      // _setHoverStatus();
+    }
+  };
+
+  const _rngAI = (O_CLASS) => {
+    // check board for classlist containing pve/click, place index #'s into Array
+    let options = BOARD.filter((index) =>
+      cells[index].classList.contains("pve")
+    );
+    // Math.random to pick random index # from array
+    let target = Math.floor(Math.random() * options.length);
+    // console.log(cells[options[target]]);
+
+    // place AI mark at cell
+    _placeMark(cells[options[target]], O_CLASS);
+    if (_checkWinner(O_CLASS)) {
+      winningMessage.children[0].textContent = `${O_CLASS} is the WINNER!`;
+      winningMessage.classList.add("show");
+    }
   };
 
   const _placeMark = (cell, currentClass) => {
@@ -91,46 +137,19 @@ const gameEvents = (
       });
     });
   };
-  // functional event listeners
 
   restartGame.addEventListener("click", (event) => {
-    Gameboard.restartGame();
+    // Gameboard.restartGame(); // change
   });
 
   startGame.addEventListener("click", (event) => {
     _startGame();
   });
 
-  // startGame.addEventListener("click", (event) => {
-  //   let difficulty = document.querySelector(".difficulty");
-
-  //   if (difficulty.value === "none") {
-  //     console.log("Please select an AI difficulty level.");
-  //   } else {
-  //     // gameContainer.classList.add(difficulty.value);
-  //     gameContainer.setAttribute("data-difficulty", difficulty.value);
-  //     let grids = document.querySelectorAll(".square");
-  //     grids.forEach((grid) => {
-  //       grid.classList.add("click");
-  //     });
-  //   }
-  // });
-
-  // gameContainer.addEventListener("click", (event) => {
-  //   if (event.target.classList.contains("click")) {
-  //     playerOne.myMove(event.target.id);
-  //     event.target.classList.remove("click");
-  //     renderBoard(gameContainer, event.target.id, "X");
-  //     Gameboard.checkWin();
-
-  //     setTimeout(function () {
-  //       let x = gameAI.AI(event.target.parentNode.dataset.difficulty);
-  //       gameContainer.children[x].classList.remove("click");
-  //       renderBoard(gameContainer, x, "O");
-  //       Gameboard.checkWin();
-  //     }, 1000);
-  //   }
-  // });
+  newGame.addEventListener("click", (event) => {
+    _newGame();
+    console.log("click");
+  });
 };
 
 export default gameEvents;

@@ -54,7 +54,7 @@ const main = () => {
 
   winningMessage.setAttribute("id", "winningMessage");
   winnerText.setAttribute("id", "winnerText");
-  newGameButton.setAttribute("id", "newGame");
+  newGameButton.setAttribute("id", "new-game");
   winnerText.textContent = "Winner!";
   newGameButton.textContent = "New Game";
 

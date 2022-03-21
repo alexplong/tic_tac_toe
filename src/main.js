@@ -15,8 +15,17 @@ import "./style.scss";
   const cells = document.querySelectorAll(".square");
   const restartGame = document.getElementById("reset-button");
   const startGame = document.getElementById("start-button");
+  const newGame = document.getElementById("new-game");
   const difficulty = document.querySelector(".difficulty");
   const winningMessage = document.getElementById("winningMessage");
 
-  gameEvents(board, cells, restartGame, startGame, difficulty, winningMessage);
+  gameEvents(
+    board,
+    cells,
+    restartGame,
+    startGame,
+    newGame,
+    difficulty,
+    winningMessage
+  );
 })();
